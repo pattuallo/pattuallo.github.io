@@ -1,14 +1,14 @@
 Vedi anche
 <ul>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-rendimento-23-maggio' target='_blank'>Miglior dividendi 23 Maggio</a></li>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-ftsemib' target='_blank'>Dividendi FTSEMIB<a/></li>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-a-b' target='_blank'>Dividendi Aziende (A-B)<a/></li>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-c-f' target='_blank'>Dividendi Aziende (C-F)<a/></li>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-g-o' target='_blank'>Dividendi Aziende (G-O)<a/></li>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-p-z' target='_blank'>Dividendi Aziende (P-Z)<a/></li>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-euronext-growth-milan' target='_blank'>Dividendi Euronext Growth<a/></li>
-  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-risparmio' target='_blank'>Dividendi Azioni a Risparmio<a/></li>
-  <li><a href='https://www.valoreazioni.com/dividendi/dividendi-2022-borsa-italiana-migliori-ftse-mib-rendimento.html' target='_blank'>Azioni per rendimento</a></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-rendimento-23-maggio" target="_blank">Miglior dividendi 23 Maggio</a></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-ftsemib" target="_blank">Dividendi FTSEMIB<a/></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-a-b" target="_blank">Dividendi Aziende (A-B)<a/></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-c-f" target="_blank">Dividendi Aziende (C-F)<a/></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-g-o" target="_blank">Dividendi Aziende (G-O)<a/></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-borsa-italiana-p-z" target="_blank">Dividendi Aziende (P-Z)<a/></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-euronext-growth-milan" target="_blank">Dividendi Euronext Growth<a/></li>
+  <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-azioni-risparmio" target="_blank">Dividendi Azioni a Risparmio<a/></li>
+  <li><a href="https://www.valoreazioni.com/dividendi/dividendi-2022-borsa-italiana-migliori-ftse-mib-rendimento.html" target="_blank">Azioni per rendimento</a></li>
 </ul>
 
 Lista dei dividendi
