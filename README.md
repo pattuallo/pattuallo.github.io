@@ -73,11 +73,32 @@ Lista dei dividendi
         <th>0,75</th>
       </tr>
       <tr>
+        <th>UNIPOL SAI</th>
+        <th>0,19</th>
+        <th>23 Maggio 2022</th>
+        <th>25 Maggio 2022</th>
+        <th>0,19</th>
+      </tr>
+      <tr>
+        <th>ITALGAS</th>
+        <th>0,295</th>
+        <th>23 Maggio 2022</th>
+        <th>25 Maggio 2022</th>
+        <th>0,277</th>
+      </tr>
+      <tr>
         <th>SNAM</th>
         <th>0,1572 (Saldo)</th>
         <th>20 Giugno 2022</th>
         <th>22 Giugno 2022</th>
         <th>0,2495</th>
+      </tr>
+      <tr>
+        <th>SAIPEM</th>
+        <th>N.A.</th>
+        <th>N.A.</th>
+        <th>N.A.</th>
+        <th>N.A.</th>
       </tr>
       <tr>
         <th>Fincantieri</th>
