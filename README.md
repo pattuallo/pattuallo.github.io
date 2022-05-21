@@ -65,6 +65,27 @@ Lista dei dividendi
         <th>18 Luglio 2022</th>
         <th>0,358</th>
       </tr>
+      <tr>
+        <th>ERG</th>
+        <th>0,9</th>
+        <th>23 Maggio 2022</th>
+        <th>25 Maggio 2022</th>
+        <th>0,75</th>
+      </tr>
+      <tr>
+        <th>SNAM</th>
+        <th>0,1572 (Saldo)</th>
+        <th>20 Giugno 2022</th>
+        <th>22 Giugno 2022</th>
+        <th>0,2495</th>
+      </tr>
+      <tr>
+        <th>Fincantieri</th>
+        <th>N.A.</th>
+        <th>N.A.</th>
+        <th>N.A.</th>
+        <th>N.A.</th>
+      </tr>
    </tbody>
 <table>
      
