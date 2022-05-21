@@ -1,37 +1,65 @@
-## Welcome to GitHub Pages
+# Important Information
 
-You can use the [editor on GitHub](https://github.com/pattuallo/pattuallo.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+Vedi anche
+<ul>
+  <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-rendimento-23-maggio'>Miglior dividendi</a></li>
+  <li><a href='https://www.valoreazioni.com/dividendi/dividendi-2022-borsa-italiana-migliori-ftse-mib-rendimento.html'>Yield</a></li>
+</ul>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/pattuallo/pattuallo.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Lista dei dividendi
+<table>
+   <thead>
+      <tr>
+        <th>Società</th>
+        <th>Dividendo 2022</th>
+        <th>Data di Stacco</th>
+        <th>Data di Pagamento</th>
+        <th>Dividendo 2021</th>
+     </tr>
+   </thead>
+   <tbody>
+      <tr>
+        <th>Azimut Holding</th>
+        <th>1,3</th>
+        <th>23 Maggio 2022</th>
+        <th>25 Maggio 2022</th>
+        <th>1</th>
+      </tr>
+      <tr>
+        <th>Poste Italiane</th>
+        <th>0,405</th>
+        <th>20 Giugno 2022</th>
+        <th>22 Giugno 2022</th>
+        <th>1,47</th>
+      </tr>
+      <tr>
+        <th>Unicredit</th>
+        <th>0,538</th>
+        <th>19 Aprile 2022</th>
+        <th>21 Aprile 2022</th>
+        <th>0,12</th>
+      </tr>
+      <tr>
+        <th>Assicurazione Generali</th>
+        <th>1,07</th>
+        <th>23 Maggio 2022</th>
+        <th>25 Maggio 2022</th>
+        <th>1,47</th>
+      </tr>
+      <tr>
+        <th>ENI</th>
+        <th>0,43 (Saldo)</th>
+        <th>23 Maggio 2022</th>
+        <th>25 Maggio 2022</th>
+        <th>0,36</th>
+      </tr>
+      <tr>
+        <th>Enel</th>
+        <th>0,19 (Saldo)</th>
+        <th>18 Luglio 2022</th>
+        <th>18 Luglio 2022</th>
+        <th>0,358</th>
+      </tr>
+   </tbody>
+<table>
+     
