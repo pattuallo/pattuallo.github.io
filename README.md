@@ -1,5 +1,3 @@
-# Important Information
-
 Vedi anche
 <ul>
   <li><a href='https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-rendimento-23-maggio'>Miglior dividendi</a></li>
