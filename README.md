@@ -19,6 +19,7 @@ Lista dei dividendi
    <thead>
       <tr>
         <th>Società</th>
+        <th>Stock Name</th>
         <th>Dividendo 2022</th>
         <th>Data di Stacco</th>
         <th>Data di Pagamento</th>
@@ -28,6 +29,7 @@ Lista dei dividendi
    <tbody>
       <tr>
         <th>Acea</th>
+        <th>ACE.MI</th>
         <th>0,85</th>
         <th>20 Giugno 2022</th>
         <th>22 Giugno 2022</th>
@@ -35,20 +37,15 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>Stellantis</th>
+        <th>STLA.MI</th>
         <th>1,04</th>
         <th>19 Aprile 2022</th>
         <th>29 Aprile 2022</th>
         <th>0,42</th>
       </tr>
       <tr>
-        <th>Stellantis</th>
-        <th>1,04</th>
-        <th>19 Aprile 2022</th>
-        <th>29 Aprile 2022</th>
-        <th>1</th>
-      </tr>
-      <tr>
         <th>Azimut Holding</th>
+        <th>AZM.MI</th>
         <th>1,3</th>
         <th>23 Maggio 2022</th>
         <th>25 Maggio 2022</th>
@@ -56,6 +53,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>Poste Italiane</th>
+        <th>PST.MI</th>
         <th>0,405</th>
         <th>20 Giugno 2022</th>
         <th>22 Giugno 2022</th>
@@ -63,6 +61,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>Unicredit</th>
+        <th>UCG.MI</th>
         <th>0,538</th>
         <th>19 Aprile 2022</th>
         <th>21 Aprile 2022</th>
@@ -70,6 +69,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>Assicurazione Generali</th>
+        <th>G.MI</th>
         <th>1,07</th>
         <th>23 Maggio 2022</th>
         <th>25 Maggio 2022</th>
@@ -77,13 +77,15 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>ENI</th>
+        <th>ENI.MI</th>
         <th>0,43 (Saldo)</th>
         <th>23 Maggio 2022</th>
         <th>25 Maggio 2022</th>
         <th>0,36</th>
       </tr>
       <tr>
-        <th>Enel</th>
+        <th>ENEL</th>
+        <th>ENEL.MI</th>
         <th>0,19 (Saldo)</th>
         <th>18 Luglio 2022</th>
         <th>18 Luglio 2022</th>
@@ -91,6 +93,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>ERG</th>
+        <th>ENG.MI</th>
         <th>0,9</th>
         <th>23 Maggio 2022</th>
         <th>25 Maggio 2022</th>
@@ -98,6 +101,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>UNIPOL SAI</th>
+        <th>US.MI</th>
         <th>0,19</th>
         <th>23 Maggio 2022</th>
         <th>25 Maggio 2022</th>
@@ -105,6 +109,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>ITALGAS</th>
+        <th>IG.MI</th>
         <th>0,295</th>
         <th>23 Maggio 2022</th>
         <th>25 Maggio 2022</th>
@@ -112,6 +117,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>SNAM</th>
+        <th>SRG.MI</th>
         <th>0,1572 (Saldo)</th>
         <th>20 Giugno 2022</th>
         <th>22 Giugno 2022</th>
@@ -119,6 +125,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>SAIPEM</th>
+        <th>SPM.MI</th>
         <th>N.A.</th>
         <th>N.A.</th>
         <th>N.A.</th>
