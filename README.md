@@ -1,6 +1,3 @@
-<meta http-equiv='cache-control' content='no-cache'> 
-<meta http-equiv='expires' content='0'> 
-<meta http-equiv='pragma' content='no-cache'>
 Vedi anche
 <ul>
   <li><a href="https://www.soldionline.it/notizie/azioni-italia/dividendi-2022-rendimento-23-maggio" target="_blank">Miglior dividendi 23 Maggio</a></li>
