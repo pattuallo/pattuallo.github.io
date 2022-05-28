@@ -130,7 +130,7 @@ Lista dei dividendi
       </tr>
       <tr>
         <th>Fincantieri</th>
-        <th>N.A.</th>
+        <th>FCT.MI</th>
         <th>N.A.</th>
         <th>N.A.</th>
         <th>N.A.</th>
