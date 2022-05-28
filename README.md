@@ -24,6 +24,27 @@ Lista dei dividendi
    </thead>
    <tbody>
       <tr>
+        <th>Acea</th>
+        <th>0,85</th>
+        <th>20 Giugno 2022</th>
+        <th>22 Giugno 2022</th>
+        <th>0,8</th>
+      </tr>
+      <tr>
+        <th>Stellantis</th>
+        <th>1,04</th>
+        <th>19 Aprile 2022</th>
+        <th>29 Aprile 2022</th>
+        <th>0,42</th>
+      </tr>
+      <tr>
+        <th>Stellantis</th>
+        <th>1,04</th>
+        <th>19 Aprile 2022</th>
+        <th>29 Aprile 2022</th>
+        <th>1</th>
+      </tr>
+      <tr>
         <th>Azimut Holding</th>
         <th>1,3</th>
         <th>23 Maggio 2022</th>
