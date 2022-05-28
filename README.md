@@ -134,6 +134,7 @@ Lista dei dividendi
         <th>N.A.</th>
         <th>N.A.</th>
         <th>N.A.</th>
+        <th>N.A.</th>
       </tr>
    </tbody>
 <table>
