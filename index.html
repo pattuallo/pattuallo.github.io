@@ -8,18 +8,18 @@
       <meta http-equiv="Pragma" content="no-cache" />
       <meta http-equiv="Expires" content="0" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-      <link rel="stylesheet" href="resources/main.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
-      <script src="resources/main.js"></script>
-      <script type="text/javascript" src="https://cookieconsent.popupsmart.com/src/js/popper.js"></script>
       <script>
-          window.start.init({Palette:"palette1",Mode:"banner top",Theme:"wire",Time:"5",   })
           $(document).ready(function() {
+            // Initialize table sorter
+            $('.tablesorter').tablesorter();
+            
             let rowsHidden = false;
             $('#toggle-negative-rows').click(function() {
               if (rowsHidden) {
+                // Show negative rows
                 $('table tbody tr').each(function() {
                   var missDaysText = $(this).find('td:nth-child(10)').text();
                   var missDays = parseInt(missDaysText);
@@ -28,8 +28,10 @@
                   }
                 });
                 $(this).text('Hide dividends already passed');
+                $(this).removeClass('btn-warning').addClass('btn-success');
                 rowsHidden = false;
               } else {
+                // Hide negative rows
                 $('table tbody tr').each(function() {
                   var missDaysText = $(this).find('td:nth-child(10)').text();
                   var missDays = parseInt(missDaysText);
@@ -38,16 +40,20 @@
                   }
                 });
                 $(this).text('Show dividends already passed');
+                $(this).removeClass('btn-success').addClass('btn-warning');
                 rowsHidden = true;
               }
             });
+            
+            // Initialize button text
+            $('#toggle-negative-rows').text('Hide dividends already passed');
           });
       </script>
     </head>
     <body>
     <div class="container">
       <h2>Dividends updated to 2025-06-19</h2>
-      <button id="toggle-negative-rows" class="btn btn-success">Toggle dividends already passed</button>
+      <button id="toggle-negative-rows" class="btn btn-success">Hide dividends already passed</button>
 
     <table border="1" class="dataframe table table-striped table-class tablesorter">
   <thead class='thead-light'>
@@ -741,6 +747,34 @@
     </tr>
     <tr>
       <td>49</td>
+      <td>EUROCOMMERCIAL PROPERTIES N.V.</td>
+      <td>1,12</td>
+      <td>EURO</td>
+      <td>2025/06/05</td>
+      <td>2025/07/03</td>
+      <td>NL0015000K93</td>
+      <td>24.8</td>
+      <td>4.52</td>
+      <td>NL0015000K93</td>
+      <td>-14</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>EUROCOMMERCIAL PROPERTIES N.V.</td>
+      <td>1,12</td>
+      <td>EURO</td>
+      <td>2025/06/05</td>
+      <td>2025/07/03</td>
+      <td>NL0015000K93</td>
+      <td>24.8</td>
+      <td>4.52</td>
+      <td>NL0015000K93</td>
+      <td>-14</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <td>51</td>
       <td>BANCA MEDIOLANUM S.p.A.</td>
       <td>0,63</td>
       <td>EURO</td>
@@ -752,34 +786,6 @@
       <td>IT0004776628</td>
       <td>-58</td>
       <td>-56.0</td>
-    </tr>
-    <tr>
-      <td>50</td>
-      <td>EUROCOMMERCIAL PROPERTIES N.V.</td>
-      <td>1,12</td>
-      <td>EURO</td>
-      <td>2025/06/05</td>
-      <td>2025/07/03</td>
-      <td>NL0015000K93</td>
-      <td>25.0</td>
-      <td>4.48</td>
-      <td>NL0015000K93</td>
-      <td>-14</td>
-      <td>14.0</td>
-    </tr>
-    <tr>
-      <td>51</td>
-      <td>EUROCOMMERCIAL PROPERTIES N.V.</td>
-      <td>1,12</td>
-      <td>EURO</td>
-      <td>2025/06/05</td>
-      <td>2025/07/03</td>
-      <td>NL0015000K93</td>
-      <td>25.0</td>
-      <td>4.48</td>
-      <td>NL0015000K93</td>
-      <td>-14</td>
-      <td>14.0</td>
     </tr>
     <tr>
       <td>52</td>
@@ -1965,8 +1971,8 @@
       <td>2025/05/19</td>
       <td>2025/05/21</td>
       <td>NL0013995087</td>
-      <td>13.74</td>
-      <td>2.04</td>
+      <td>13.54</td>
+      <td>2.07</td>
       <td>NL0013995087</td>
       <td>-31</td>
       <td>-29.0</td>
