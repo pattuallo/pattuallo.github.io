@@ -9,8 +9,6 @@
   <style>
     body {
       margin: 0;
-      padding: 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     .date-header {
       background: linear-gradient(135deg, #6c757d, #495057);
@@ -18,26 +16,15 @@
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 20px;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .date-header h1 {
-      margin: 0;
-      font-size: 1.5em;
+    .date-header .date-info {
+      font-size: 1.3em;
       font-weight: 600;
-    }
-    .date-header p {
-      margin: 5px 0 0 0;
-      font-size: 1.1em;
-      opacity: 0.9;
-    }
-    .controls {
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      text-align: center;
+      margin: 0;
     }
     .table-container {
       width: 100%;
@@ -139,11 +126,7 @@
 </head>
 <body>
   <div class="date-header">
-    <h1>📊 Report Dividendi</h1>
-    <p>📅 venerdì 20 giugno 2025</p>
-  </div>
-  
-  <div class="controls">
+    <div class="date-info">📅 venerdì 20 giugno 2025</div>
     <button id="toggle-negative-rows" class="btn btn-success btn-toggle">Nascondi dividendi già passati</button>
   </div>
   
@@ -1344,6 +1327,20 @@
     </tr>
     <tr>
       <td>85</td>
+      <td>Sanlorenzo S.p.A.</td>
+      <td>1</td>
+      <td>EURO</td>
+      <td>2025/05/19</td>
+      <td>2025/05/21</td>
+      <td>IT0003549422</td>
+      <td>28.95</td>
+      <td>3.45</td>
+      <td>IT0003549422</td>
+      <td>-32</td>
+      <td>-30.0</td>
+    </tr>
+    <tr>
+      <td>86</td>
       <td>EQUITA GROUP S.p.A.</td>
       <td>0,15</td>
       <td>EURO</td>
@@ -1357,7 +1354,7 @@
       <td>152.0</td>
     </tr>
     <tr>
-      <td>86</td>
+      <td>87</td>
       <td>Industrie Chimiche Forestali S.p.A.</td>
       <td>0,2</td>
       <td>EURO</td>
@@ -1367,20 +1364,6 @@
       <td>5.82</td>
       <td>3.44</td>
       <td>IT0005416281</td>
-      <td>-32</td>
-      <td>-30.0</td>
-    </tr>
-    <tr>
-      <td>87</td>
-      <td>Sanlorenzo S.p.A.</td>
-      <td>1</td>
-      <td>EURO</td>
-      <td>2025/05/19</td>
-      <td>2025/05/21</td>
-      <td>IT0003549422</td>
-      <td>29.2</td>
-      <td>3.42</td>
-      <td>IT0003549422</td>
       <td>-32</td>
       <td>-30.0</td>
     </tr>
@@ -2100,6 +2083,20 @@
     </tr>
     <tr>
       <td>139</td>
+      <td>WIIT S.p.A.</td>
+      <td>0,3</td>
+      <td>EURO</td>
+      <td>2025/05/05</td>
+      <td>2025/05/07</td>
+      <td>IT0005440893</td>
+      <td>14.84</td>
+      <td>2.02</td>
+      <td>IT0005440893</td>
+      <td>-46</td>
+      <td>-44.0</td>
+    </tr>
+    <tr>
+      <td>140</td>
       <td>Franchi Umberto Marmi S.p.A.</td>
       <td>0,1</td>
       <td>EURO</td>
@@ -2111,20 +2108,6 @@
       <td>IT0005335754</td>
       <td>-11</td>
       <td>-9.0</td>
-    </tr>
-    <tr>
-      <td>140</td>
-      <td>WIIT S.p.A.</td>
-      <td>0,3</td>
-      <td>EURO</td>
-      <td>2025/05/05</td>
-      <td>2025/05/07</td>
-      <td>IT0005440893</td>
-      <td>15.26</td>
-      <td>1.97</td>
-      <td>IT0005440893</td>
-      <td>-46</td>
-      <td>-44.0</td>
     </tr>
     <tr>
       <td>141</td>
