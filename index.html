@@ -121,13 +121,13 @@
   </style>
   <script>
     $(document).ready(function () {
-      // Cookie Banner Logic
-      if (!localStorage.getItem('cookieConsent')) {
+      // Disclaimer Banner Logic
+      if (!localStorage.getItem('disclaimerAccepted')) {
         $('#cookie-banner').fadeIn();
       }
 
-      $('#accept-cookies').click(function () {
-        localStorage.setItem('cookieConsent', 'true');
+      $('#close-banner').click(function () {
+        localStorage.setItem('disclaimerAccepted', 'true');
         $('#cookie-banner').fadeOut();
       });
 
@@ -353,9 +353,8 @@
   </tbody>
 </table>  </div><div id="cookie-banner">
     <div class="container">
-      <p>Questo sito utilizza i cookie per migliorare l'esperienza utente. Continuando a navigare accetti l'uso dei
-        cookie.</p>
-      <button id="accept-cookies" class="btn btn-success btn-sm">Accetta Cookie</button>
+      <p><b>Nota sui dati & Privacy:</b> Questo sito non utilizza cookie o tracker. I dati sono estratti da fonti pubbliche a puro scopo informativo e non costituiscono consulenza finanziaria. Il creatore non è responsabile per l'accuratezza dei dati.</p>
+      <button id="close-banner">Ho capito</button>
     </div>
   </div>
 </body>
