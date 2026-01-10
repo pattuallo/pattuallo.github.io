@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>Dividend Data</title>
@@ -9,7 +10,10 @@
   <style>
     body {
       margin: 0;
+      padding-bottom: 60px;
+      /* Space for cookie banner */
     }
+
     .date-header {
       background: linear-gradient(135deg, #6c757d, #495057);
       color: white;
@@ -19,25 +23,29 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     .date-header .date-info {
       font-size: 1.3em;
       font-weight: 600;
       margin: 0;
     }
+
     .table-container {
       width: 100%;
       max-width: 100%;
       background: white;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
+
     .table {
       width: 100%;
       margin: 0;
     }
+
     .table thead th {
       background: linear-gradient(135deg, #007bff, #0056b3);
       color: white;
@@ -49,17 +57,21 @@
       text-align: center;
       padding: 12px 8px;
     }
+
     .table tbody td {
       text-align: center;
       padding: 8px;
       border-bottom: 1px solid #dee2e6;
     }
+
     .table tbody tr:hover {
       background-color: #f1f8ff;
     }
+
     .table tbody tr:nth-child(even) {
       background-color: #f8f9fa;
     }
+
     .btn-toggle {
       background: linear-gradient(135deg, #28a745, #20c997);
       border: none;
@@ -70,28 +82,66 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+
     .btn-toggle:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
+
     .btn-toggle.btn-warning {
       background: linear-gradient(135deg, #ffc107, #e0a800);
       color: #000;
     }
+
+    #cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #343a40;
+      color: white;
+      padding: 15px;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #cookie-banner .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #cookie-banner p {
+      margin: 0;
+      margin-right: 20px;
+    }
   </style>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+      // Cookie Banner Logic
+      if (!localStorage.getItem('cookieConsent')) {
+        $('#cookie-banner').fadeIn();
+      }
+
+      $('#accept-cookies').click(function () {
+        localStorage.setItem('cookieConsent', 'true');
+        $('#cookie-banner').fadeOut();
+      });
+
       // Initialize table sorter
       $('.tablesorter').tablesorter();
-      
+
       let rowsHidden = false;
-      $('#toggle-negative-rows').click(function() {
+      $('#toggle-negative-rows').click(function () {
         console.log('Toggle clicked, rowsHidden:', rowsHidden);
-        
+
         if (rowsHidden) {
           // Show negative rows
-          $('table tbody tr').each(function() {
-            var missDaysCell = $(this).find('td').eq(10); // Miss Days è la colonna 11 (index 10)
+          $('table tbody tr').each(function () {
+            var missDaysCell = $(this).find('td').eq(11); // Miss Days è la colonna 12 (index 11)
             var missDaysText = missDaysCell.text().trim();
             var missDays = parseInt(missDaysText);
             console.log('Show - Row Miss Days:', missDaysText, 'Parsed:', missDays);
@@ -104,8 +154,8 @@
           rowsHidden = false;
         } else {
           // Hide negative rows
-          $('table tbody tr').each(function() {
-            var missDaysCell = $(this).find('td').eq(10); // Miss Days è la colonna 11 (index 10)
+          $('table tbody tr').each(function () {
+            var missDaysCell = $(this).find('td').eq(11); // Miss Days è la colonna 12 (index 11)
             var missDaysText = missDaysCell.text().trim();
             var missDays = parseInt(missDaysText);
             console.log('Hide - Row Miss Days:', missDaysText, 'Parsed:', missDays);
@@ -118,577 +168,591 @@
           rowsHidden = true;
         }
       });
-      
+
       // Initialize button text
       $('#toggle-negative-rows').text('Nascondi dividendi già passati');
     });
   </script>
 </head>
+
 <body>
   <div class="date-header">
     <div class="date-info">📅 giovedì 1 gennaio 2026</div>
     <button id="toggle-negative-rows" class="btn btn-success btn-toggle">Nascondi dividendi già passati</button>
   </div>
-  
+
   <div class="table-container">
-<table border="1" class="dataframe table table-striped tablesorter">
-  <thead>
-    <tr style="text-align: center;">
-      <th>ID</th>
-      <th>Stock</th>
-      <th>Dividend</th>
-      <th>Currency</th>
-      <th>Detachment Date</th>
-      <th>Payment Date</th>
-      <th>Reference Year/Type</th>
-      <th>Ticker</th>
-      <th>Last Close</th>
-      <th>Ratio</th>
-      <th>Found Ticker</th>
-      <th>Miss Days</th>
-      <th>Miss Payment Days</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>First Capital S.p.A.</td>
-      <td>1.0000</td>
-      <td>EURO</td>
-      <td>2025-12-15</td>
-      <td>2025/12/17</td>
-      <td>Straordinario</td>
-      <td>IT0005252736</td>
-      <td>20.2</td>
-      <td>4.95</td>
-      <td>IT0005252736</td>
-      <td>-17</td>
-      <td>-15</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>BANCA IFIS S.p.A.</td>
-      <td>1.2000</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0003188064</td>
-      <td>25.38</td>
-      <td>4.73</td>
-      <td>IT0003188064</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>DEA CAPITAL REAL ESTATE SGR S.p.A.</td>
-      <td>15.0000</td>
-      <td>EURO</td>
-      <td>2025-12-22</td>
-      <td>2025/12/24</td>
-      <td>Ordinario</td>
-      <td>IT0003049605</td>
-      <td>365.85</td>
-      <td>4.10</td>
-      <td>IT0003049605</td>
-      <td>-10</td>
-      <td>-8</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>F.I.L.A. S.p.A.</td>
-      <td>0.4000</td>
-      <td>EURO</td>
-      <td>2025-11-17</td>
-      <td>2025/11/19</td>
-      <td>Straordinario</td>
-      <td>IT0004967292</td>
-      <td>9.76</td>
-      <td>4.10</td>
-      <td>IT0004967292</td>
-      <td>-45</td>
-      <td>-43</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>First Capital S.p.A.</td>
-      <td>0.7500</td>
-      <td>EURO</td>
-      <td>2026-05-04</td>
-      <td>2026/05/06</td>
-      <td>Straordinario</td>
-      <td>IT0005252736</td>
-      <td>20.2</td>
-      <td>3.71</td>
-      <td>IT0005252736</td>
-      <td>123</td>
-      <td>125</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Banco BPM S.p.A.</td>
-      <td>0.4600</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0005218380</td>
-      <td>13.02</td>
-      <td>3.53</td>
-      <td>IT0005218380</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Giocamondo Study S.p.A.</td>
-      <td>0.0600</td>
-      <td>EURO</td>
-      <td>2026-02-09</td>
-      <td>2026/02/11</td>
-      <td>Ordinario</td>
-      <td>IT0005652489</td>
-      <td>1.7</td>
-      <td>3.53</td>
-      <td>IT0005652489</td>
-      <td>39</td>
-      <td>41</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Mediobanca Banca di Credito Finanziario S.p.A.</td>
-      <td>0.5900</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Ordinario</td>
-      <td>IT0000062957</td>
-      <td>17.78</td>
-      <td>3.32</td>
-      <td>IT0000062957</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>ARNOLDO MONDADORI EDITORE S.p.A.</td>
-      <td>0.0700</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0001469383</td>
-      <td>2.12</td>
-      <td>3.31</td>
-      <td>IT0001469383</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Intesa Sanpaolo S.p.A.</td>
-      <td>0.1860</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0000072618</td>
-      <td>5.92</td>
-      <td>3.14</td>
-      <td>IT0000072618</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>BANCA MEDIOLANUM S.p.A.</td>
-      <td>0.6000</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0004776628</td>
-      <td>19.47</td>
-      <td>3.08</td>
-      <td>IT0004776628</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>INWIT S.p.A.</td>
-      <td>0.2147</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Straordinario</td>
-      <td>IT0005090300</td>
-      <td>7.89</td>
-      <td>2.72</td>
-      <td>IT0005090300</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>ENEL S.p.A.</td>
-      <td>0.2300</td>
-      <td>EURO</td>
-      <td>2026-01-19</td>
-      <td>2026/01/21</td>
-      <td>Interim</td>
-      <td>IT0003128367</td>
-      <td>8.88</td>
-      <td>2.59</td>
-      <td>IT0003128367</td>
-      <td>18</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>EQUITA GROUP S.p.A.</td>
-      <td>0.1500</td>
-      <td>EURO</td>
-      <td>2025-11-17</td>
-      <td>2025/11/19</td>
-      <td>Interim</td>
-      <td>IT0005312027</td>
-      <td>6.27</td>
-      <td>2.39</td>
-      <td>IT0005312027</td>
-      <td>-45</td>
-      <td>-43</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Snam S.p.A.</td>
-      <td>0.1208</td>
-      <td>EURO</td>
-      <td>2026-01-19</td>
-      <td>2026/01/21</td>
-      <td>Interim</td>
-      <td>IT0003153415</td>
-      <td>5.66</td>
-      <td>2.14</td>
-      <td>IT0003153415</td>
-      <td>18</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Unicredit S.p.A.</td>
-      <td>1.4282</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0005239360</td>
-      <td>70.92</td>
-      <td>2.01</td>
-      <td>IT0005239360</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>TENARIS S.A.</td>
-      <td>0.2900</td>
-      <td>DOLLARI USA</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>LU2598331598</td>
-      <td>16.51</td>
-      <td>1.76</td>
-      <td>LU2598331598</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>POLIGRAFICI PRINTING S.p.A.</td>
-      <td>0.0075</td>
-      <td>EURO</td>
-      <td>2025-10-20</td>
-      <td>2025/10/22</td>
-      <td>Interim</td>
-      <td>IT0004587470</td>
-      <td>0.46</td>
-      <td>1.63</td>
-      <td>IT0004587470</td>
-      <td>-73</td>
-      <td>-71</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>POLIGRAFICI PRINTING S.p.A.</td>
-      <td>0.0075</td>
-      <td>EURO</td>
-      <td>2025-12-15</td>
-      <td>2025/12/17</td>
-      <td>Interim</td>
-      <td>IT0004587470</td>
-      <td>0.46</td>
-      <td>1.63</td>
-      <td>IT0004587470</td>
-      <td>-17</td>
-      <td>-15</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Eni S.p.A.</td>
-      <td>0.2600</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0003132476</td>
-      <td>16.14</td>
-      <td>1.61</td>
-      <td>IT0003132476</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>TERNA S.p.A.</td>
-      <td>0.1192</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0003242622</td>
-      <td>9.05</td>
-      <td>1.32</td>
-      <td>IT0003242622</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>RECORDATI S.p.A.</td>
-      <td>0.6300</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0003828271</td>
-      <td>48.54</td>
-      <td>1.30</td>
-      <td>IT0003828271</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Banca Generali S.p.A.</td>
-      <td>0.6500</td>
-      <td>EURO</td>
-      <td>2026-02-23</td>
-      <td>2026/02/25</td>
-      <td>Interim</td>
-      <td>IT0001031084</td>
-      <td>57.2</td>
-      <td>1.14</td>
-      <td>IT0001031084</td>
-      <td>53</td>
-      <td>55</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>ILPRA S.p.A.</td>
-      <td>0.0600</td>
-      <td>EURO</td>
-      <td>2025-10-20</td>
-      <td>2025/10/22</td>
-      <td>Interim</td>
-      <td>IT0005359101</td>
-      <td>5.6</td>
-      <td>1.07</td>
-      <td>IT0005359101</td>
-      <td>-73</td>
-      <td>-71</td>
-    </tr>
-    <tr>
-      <td>25</td>
-      <td>A.B.P. Nocivelli S.p.A.</td>
-      <td>0.0700</td>
-      <td>EURO</td>
-      <td>2025-11-10</td>
-      <td>2025/11/12</td>
-      <td>Ordinario</td>
-      <td>IT0005439861</td>
-      <td>7.25</td>
-      <td>0.97</td>
-      <td>IT0005439861</td>
-      <td>-52</td>
-      <td>-50</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>DANIELI &amp; C. S.p.A.</td>
-      <td>0.3307</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Ordinario</td>
-      <td>IT0000076486</td>
-      <td>36.8</td>
-      <td>0.90</td>
-      <td>IT0000076486</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>eVISO S.p.A.</td>
-      <td>0.0600</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Ordinario</td>
-      <td>IT0005430936</td>
-      <td>6.85</td>
-      <td>0.88</td>
-      <td>IT0005430936</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>28</td>
-      <td>Bper Banca S.P.A.</td>
-      <td>0.1000</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0000066123</td>
-      <td>11.6</td>
-      <td>0.86</td>
-      <td>IT0000066123</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>29</td>
-      <td>DANIELI &amp; C. S.p.A.</td>
-      <td>0.3100</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Ordinario</td>
-      <td>IT0000076486</td>
-      <td>36.8</td>
-      <td>0.84</td>
-      <td>IT0000076486</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>30</td>
-      <td>DANIELI &amp; C. S.p.A.</td>
-      <td>0.3307</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Ordinario</td>
-      <td>IT0000076502</td>
-      <td>50.6</td>
-      <td>0.65</td>
-      <td>IT0000076502</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>31</td>
-      <td>DANIELI &amp; C. S.p.A.</td>
-      <td>0.3100</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Ordinario</td>
-      <td>IT0000076502</td>
-      <td>50.6</td>
-      <td>0.61</td>
-      <td>IT0000076502</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-    <tr>
-      <td>32</td>
-      <td>STMicroelectronics N.V.</td>
-      <td>0.0900</td>
-      <td>DOLLARI USA</td>
-      <td>2025-12-15</td>
-      <td>2025/12/17</td>
-      <td>Interim</td>
-      <td>NL0000226223</td>
-      <td>22.44</td>
-      <td>0.40</td>
-      <td>NL0000226223</td>
-      <td>-17</td>
-      <td>-15</td>
-    </tr>
-    <tr>
-      <td>33</td>
-      <td>STMicroelectronics N.V.</td>
-      <td>0.0900</td>
-      <td>DOLLARI USA</td>
-      <td>2026-03-23</td>
-      <td>2026/03/25</td>
-      <td>Interim</td>
-      <td>NL0000226223</td>
-      <td>22.44</td>
-      <td>0.40</td>
-      <td>NL0000226223</td>
-      <td>81</td>
-      <td>83</td>
-    </tr>
-    <tr>
-      <td>34</td>
-      <td>Bertolotti S.p.A.</td>
-      <td>0.0980</td>
-      <td>EURO</td>
-      <td>2025-10-06</td>
-      <td>2025/10/08</td>
-      <td>Ordinario</td>
-      <td>IT0005585127</td>
-      <td>-</td>
-      <td>0.00</td>
-      <td>-</td>
-      <td>-87</td>
-      <td>-85</td>
-    </tr>
-    <tr>
-      <td>35</td>
-      <td>D'AMICO INTERNATIONAL SHIPPING S.A.</td>
-      <td>0.1340</td>
-      <td>DOLLARI USA</td>
-      <td>2025-11-17</td>
-      <td>2025/11/19</td>
-      <td>Interim</td>
-      <td>LU2592315662</td>
-      <td>-</td>
-      <td>0.00</td>
-      <td>-</td>
-      <td>-45</td>
-      <td>-43</td>
-    </tr>
-    <tr>
-      <td>36</td>
-      <td>Poste Italiane S.p.A.</td>
-      <td>0.4000</td>
-      <td>EURO</td>
-      <td>2025-11-24</td>
-      <td>2025/11/26</td>
-      <td>Interim</td>
-      <td>IT0003796171</td>
-      <td>-</td>
-      <td>0.00</td>
-      <td>-</td>
-      <td>-38</td>
-      <td>-36</td>
-    </tr>
-  </tbody>
-</table>  </div></body></html>
+    <table border="1" class="dataframe table table-striped tablesorter">
+      <thead>
+        <tr style="text-align: center;">
+          <th>ID</th>
+          <th>Stock</th>
+          <th>Dividend</th>
+          <th>Currency</th>
+          <th>Detachment Date</th>
+          <th>Payment Date</th>
+          <th>Reference Year/Type</th>
+          <th>Ticker</th>
+          <th>Last Close</th>
+          <th>Ratio</th>
+          <th>Found Ticker</th>
+          <th>Miss Days</th>
+          <th>Miss Payment Days</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>First Capital S.p.A.</td>
+          <td>1.0000</td>
+          <td>EURO</td>
+          <td>2025-12-15</td>
+          <td>2025/12/17</td>
+          <td>Straordinario</td>
+          <td>IT0005252736</td>
+          <td>20.2</td>
+          <td>4.95</td>
+          <td>IT0005252736</td>
+          <td>-17</td>
+          <td>-15</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>BANCA IFIS S.p.A.</td>
+          <td>1.2000</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0003188064</td>
+          <td>25.38</td>
+          <td>4.73</td>
+          <td>IT0003188064</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>DEA CAPITAL REAL ESTATE SGR S.p.A.</td>
+          <td>15.0000</td>
+          <td>EURO</td>
+          <td>2025-12-22</td>
+          <td>2025/12/24</td>
+          <td>Ordinario</td>
+          <td>IT0003049605</td>
+          <td>365.85</td>
+          <td>4.10</td>
+          <td>IT0003049605</td>
+          <td>-10</td>
+          <td>-8</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>F.I.L.A. S.p.A.</td>
+          <td>0.4000</td>
+          <td>EURO</td>
+          <td>2025-11-17</td>
+          <td>2025/11/19</td>
+          <td>Straordinario</td>
+          <td>IT0004967292</td>
+          <td>9.76</td>
+          <td>4.10</td>
+          <td>IT0004967292</td>
+          <td>-45</td>
+          <td>-43</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>First Capital S.p.A.</td>
+          <td>0.7500</td>
+          <td>EURO</td>
+          <td>2026-05-04</td>
+          <td>2026/05/06</td>
+          <td>Straordinario</td>
+          <td>IT0005252736</td>
+          <td>20.2</td>
+          <td>3.71</td>
+          <td>IT0005252736</td>
+          <td>123</td>
+          <td>125</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Banco BPM S.p.A.</td>
+          <td>0.4600</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0005218380</td>
+          <td>13.02</td>
+          <td>3.53</td>
+          <td>IT0005218380</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Giocamondo Study S.p.A.</td>
+          <td>0.0600</td>
+          <td>EURO</td>
+          <td>2026-02-09</td>
+          <td>2026/02/11</td>
+          <td>Ordinario</td>
+          <td>IT0005652489</td>
+          <td>1.7</td>
+          <td>3.53</td>
+          <td>IT0005652489</td>
+          <td>39</td>
+          <td>41</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Mediobanca Banca di Credito Finanziario S.p.A.</td>
+          <td>0.5900</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Ordinario</td>
+          <td>IT0000062957</td>
+          <td>17.78</td>
+          <td>3.32</td>
+          <td>IT0000062957</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>ARNOLDO MONDADORI EDITORE S.p.A.</td>
+          <td>0.0700</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0001469383</td>
+          <td>2.12</td>
+          <td>3.31</td>
+          <td>IT0001469383</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Intesa Sanpaolo S.p.A.</td>
+          <td>0.1860</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0000072618</td>
+          <td>5.92</td>
+          <td>3.14</td>
+          <td>IT0000072618</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>BANCA MEDIOLANUM S.p.A.</td>
+          <td>0.6000</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0004776628</td>
+          <td>19.47</td>
+          <td>3.08</td>
+          <td>IT0004776628</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>INWIT S.p.A.</td>
+          <td>0.2147</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Straordinario</td>
+          <td>IT0005090300</td>
+          <td>7.89</td>
+          <td>2.72</td>
+          <td>IT0005090300</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td>ENEL S.p.A.</td>
+          <td>0.2300</td>
+          <td>EURO</td>
+          <td>2026-01-19</td>
+          <td>2026/01/21</td>
+          <td>Interim</td>
+          <td>IT0003128367</td>
+          <td>8.88</td>
+          <td>2.59</td>
+          <td>IT0003128367</td>
+          <td>18</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td>EQUITA GROUP S.p.A.</td>
+          <td>0.1500</td>
+          <td>EURO</td>
+          <td>2025-11-17</td>
+          <td>2025/11/19</td>
+          <td>Interim</td>
+          <td>IT0005312027</td>
+          <td>6.27</td>
+          <td>2.39</td>
+          <td>IT0005312027</td>
+          <td>-45</td>
+          <td>-43</td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td>Snam S.p.A.</td>
+          <td>0.1208</td>
+          <td>EURO</td>
+          <td>2026-01-19</td>
+          <td>2026/01/21</td>
+          <td>Interim</td>
+          <td>IT0003153415</td>
+          <td>5.66</td>
+          <td>2.14</td>
+          <td>IT0003153415</td>
+          <td>18</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td>Unicredit S.p.A.</td>
+          <td>1.4282</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0005239360</td>
+          <td>70.92</td>
+          <td>2.01</td>
+          <td>IT0005239360</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td>TENARIS S.A.</td>
+          <td>0.2900</td>
+          <td>DOLLARI USA</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>LU2598331598</td>
+          <td>16.51</td>
+          <td>1.76</td>
+          <td>LU2598331598</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>POLIGRAFICI PRINTING S.p.A.</td>
+          <td>0.0075</td>
+          <td>EURO</td>
+          <td>2025-10-20</td>
+          <td>2025/10/22</td>
+          <td>Interim</td>
+          <td>IT0004587470</td>
+          <td>0.46</td>
+          <td>1.63</td>
+          <td>IT0004587470</td>
+          <td>-73</td>
+          <td>-71</td>
+        </tr>
+        <tr>
+          <td>19</td>
+          <td>POLIGRAFICI PRINTING S.p.A.</td>
+          <td>0.0075</td>
+          <td>EURO</td>
+          <td>2025-12-15</td>
+          <td>2025/12/17</td>
+          <td>Interim</td>
+          <td>IT0004587470</td>
+          <td>0.46</td>
+          <td>1.63</td>
+          <td>IT0004587470</td>
+          <td>-17</td>
+          <td>-15</td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>Eni S.p.A.</td>
+          <td>0.2600</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0003132476</td>
+          <td>16.14</td>
+          <td>1.61</td>
+          <td>IT0003132476</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>21</td>
+          <td>TERNA S.p.A.</td>
+          <td>0.1192</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0003242622</td>
+          <td>9.05</td>
+          <td>1.32</td>
+          <td>IT0003242622</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>22</td>
+          <td>RECORDATI S.p.A.</td>
+          <td>0.6300</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0003828271</td>
+          <td>48.54</td>
+          <td>1.30</td>
+          <td>IT0003828271</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>23</td>
+          <td>Banca Generali S.p.A.</td>
+          <td>0.6500</td>
+          <td>EURO</td>
+          <td>2026-02-23</td>
+          <td>2026/02/25</td>
+          <td>Interim</td>
+          <td>IT0001031084</td>
+          <td>57.2</td>
+          <td>1.14</td>
+          <td>IT0001031084</td>
+          <td>53</td>
+          <td>55</td>
+        </tr>
+        <tr>
+          <td>24</td>
+          <td>ILPRA S.p.A.</td>
+          <td>0.0600</td>
+          <td>EURO</td>
+          <td>2025-10-20</td>
+          <td>2025/10/22</td>
+          <td>Interim</td>
+          <td>IT0005359101</td>
+          <td>5.6</td>
+          <td>1.07</td>
+          <td>IT0005359101</td>
+          <td>-73</td>
+          <td>-71</td>
+        </tr>
+        <tr>
+          <td>25</td>
+          <td>A.B.P. Nocivelli S.p.A.</td>
+          <td>0.0700</td>
+          <td>EURO</td>
+          <td>2025-11-10</td>
+          <td>2025/11/12</td>
+          <td>Ordinario</td>
+          <td>IT0005439861</td>
+          <td>7.25</td>
+          <td>0.97</td>
+          <td>IT0005439861</td>
+          <td>-52</td>
+          <td>-50</td>
+        </tr>
+        <tr>
+          <td>26</td>
+          <td>DANIELI &amp; C. S.p.A.</td>
+          <td>0.3307</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Ordinario</td>
+          <td>IT0000076486</td>
+          <td>36.8</td>
+          <td>0.90</td>
+          <td>IT0000076486</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>27</td>
+          <td>eVISO S.p.A.</td>
+          <td>0.0600</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Ordinario</td>
+          <td>IT0005430936</td>
+          <td>6.85</td>
+          <td>0.88</td>
+          <td>IT0005430936</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>28</td>
+          <td>Bper Banca S.P.A.</td>
+          <td>0.1000</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0000066123</td>
+          <td>11.6</td>
+          <td>0.86</td>
+          <td>IT0000066123</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>29</td>
+          <td>DANIELI &amp; C. S.p.A.</td>
+          <td>0.3100</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Ordinario</td>
+          <td>IT0000076486</td>
+          <td>36.8</td>
+          <td>0.84</td>
+          <td>IT0000076486</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>30</td>
+          <td>DANIELI &amp; C. S.p.A.</td>
+          <td>0.3307</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Ordinario</td>
+          <td>IT0000076502</td>
+          <td>50.6</td>
+          <td>0.65</td>
+          <td>IT0000076502</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>31</td>
+          <td>DANIELI &amp; C. S.p.A.</td>
+          <td>0.3100</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Ordinario</td>
+          <td>IT0000076502</td>
+          <td>50.6</td>
+          <td>0.61</td>
+          <td>IT0000076502</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+        <tr>
+          <td>32</td>
+          <td>STMicroelectronics N.V.</td>
+          <td>0.0900</td>
+          <td>DOLLARI USA</td>
+          <td>2025-12-15</td>
+          <td>2025/12/17</td>
+          <td>Interim</td>
+          <td>NL0000226223</td>
+          <td>22.44</td>
+          <td>0.40</td>
+          <td>NL0000226223</td>
+          <td>-17</td>
+          <td>-15</td>
+        </tr>
+        <tr>
+          <td>33</td>
+          <td>STMicroelectronics N.V.</td>
+          <td>0.0900</td>
+          <td>DOLLARI USA</td>
+          <td>2026-03-23</td>
+          <td>2026/03/25</td>
+          <td>Interim</td>
+          <td>NL0000226223</td>
+          <td>22.44</td>
+          <td>0.40</td>
+          <td>NL0000226223</td>
+          <td>81</td>
+          <td>83</td>
+        </tr>
+        <tr>
+          <td>34</td>
+          <td>Bertolotti S.p.A.</td>
+          <td>0.0980</td>
+          <td>EURO</td>
+          <td>2025-10-06</td>
+          <td>2025/10/08</td>
+          <td>Ordinario</td>
+          <td>IT0005585127</td>
+          <td>-</td>
+          <td>0.00</td>
+          <td>-</td>
+          <td>-87</td>
+          <td>-85</td>
+        </tr>
+        <tr>
+          <td>35</td>
+          <td>D'AMICO INTERNATIONAL SHIPPING S.A.</td>
+          <td>0.1340</td>
+          <td>DOLLARI USA</td>
+          <td>2025-11-17</td>
+          <td>2025/11/19</td>
+          <td>Interim</td>
+          <td>LU2592315662</td>
+          <td>-</td>
+          <td>0.00</td>
+          <td>-</td>
+          <td>-45</td>
+          <td>-43</td>
+        </tr>
+        <tr>
+          <td>36</td>
+          <td>Poste Italiane S.p.A.</td>
+          <td>0.4000</td>
+          <td>EURO</td>
+          <td>2025-11-24</td>
+          <td>2025/11/26</td>
+          <td>Interim</td>
+          <td>IT0003796171</td>
+          <td>-</td>
+          <td>0.00</td>
+          <td>-</td>
+          <td>-38</td>
+          <td>-36</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div id="cookie-banner">
+    <div class="container">
+      <p>Questo sito utilizza i cookie per migliorare l'esperienza utente. Continuando a navigare accetti l'uso dei
+        cookie.</p>
+      <button id="accept-cookies" class="btn btn-success btn-sm">Accetta Cookie</button>
+    </div>
+  </div>
+</body>
+
+</html>
