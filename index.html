@@ -142,11 +142,12 @@
 
         if (rowsHidden) {
           // Show negative rows
+          var missDaysIdx = $('table thead th:contains("Miss Days")').index();
           $('table tbody tr').each(function () {
-            var missDaysCell = $(this).find('td').eq(11); // Miss Days è la colonna 12 (index 11)
+            var missDaysCell = $(this).find('td').eq(missDaysIdx);
             var missDaysText = missDaysCell.text().trim();
             var missDays = parseInt(missDaysText);
-            console.log('Show - Row Miss Days:', missDaysText, 'Parsed:', missDays);
+            console.log('Show - Row Miss Days:', missDaysText, 'Parsed:', missDays, 'at index:', missDaysIdx);
             if (!isNaN(missDays) && missDays < 0) {
               $(this).show();
             }
@@ -156,11 +157,12 @@
           rowsHidden = false;
         } else {
           // Hide negative rows
+          var missDaysIdx = $('table thead th:contains("Miss Days")').index();
           $('table tbody tr').each(function () {
-            var missDaysCell = $(this).find('td').eq(11); // Miss Days è la colonna 12 (index 11)
+            var missDaysCell = $(this).find('td').eq(missDaysIdx);
             var missDaysText = missDaysCell.text().trim();
             var missDays = parseInt(missDaysText);
-            console.log('Hide - Row Miss Days:', missDaysText, 'Parsed:', missDays);
+            console.log('Hide - Row Miss Days:', missDaysText, 'Parsed:', missDays, 'at index:', missDaysIdx);
             if (!isNaN(missDays) && missDays < 0) {
               $(this).hide();
             }
@@ -221,7 +223,7 @@
       <td>2025-12-15</td>
       <td>2025-12-17</td>
       <td>IT0005252736</td>
-      <td>20.00</td>
+      <td>20.0</td>
       <td>5.00</td>
       <td>-29</td>
       <td>-27</td>
@@ -234,7 +236,7 @@
       <td>2025-12-22</td>
       <td>2025-12-24</td>
       <td>IT0003049605</td>
-      <td>375.00</td>
+      <td>375.0</td>
       <td>4.00</td>
       <td>-22</td>
       <td>-20</td>
@@ -247,7 +249,7 @@
       <td>2026-05-04</td>
       <td>2026-05-06</td>
       <td>IT0005252736</td>
-      <td>20.00</td>
+      <td>20.0</td>
       <td>3.75</td>
       <td>111</td>
       <td>113</td>
@@ -273,7 +275,7 @@
       <td>2026-01-09</td>
       <td>2026-01-30</td>
       <td>NL0015000K93</td>
-      <td>25.70</td>
+      <td>25.7</td>
       <td>2.80</td>
       <td>-4</td>
       <td>17</td>
@@ -338,8 +340,8 @@
       <td>2025-12-15</td>
       <td>2025-12-17</td>
       <td>NL0000226223</td>
-      <td>24.73</td>
-      <td>0.36</td>
+      <td>-</td>
+      <td>0.00</td>
       <td>-29</td>
       <td>-27</td>
     </tr>
@@ -351,8 +353,8 @@
       <td>2026-03-23</td>
       <td>2026-03-25</td>
       <td>NL0000226223</td>
-      <td>24.73</td>
-      <td>0.36</td>
+      <td>-</td>
+      <td>0.00</td>
       <td>69</td>
       <td>71</td>
     </tr>
