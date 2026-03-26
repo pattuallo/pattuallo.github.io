@@ -138,37 +138,43 @@
 
       let rowsHidden = false;
       $('#toggle-negative-rows').click(function () {
-        console.log('Toggle clicked, rowsHidden:', rowsHidden);
+        var btn = $(this);
+        console.log('Toggle clicked, previous rowsHidden:', rowsHidden);
+        
+        // Find "Miss Days" column index by EXACT text match
+        var missDaysIdx = -1;
+        $('table thead th').each(function(i) {
+          var headerText = $(this).text().trim();
+          // Remove potential tablesorter icons/markup for comparison
+          if (headerText.indexOf("Miss Days") === 0) {
+             missDaysIdx = i;
+             return false;
+          }
+        });
+        
+        console.log('Detected Miss Days column index:', missDaysIdx);
+        
+        if (missDaysIdx === -1) {
+          console.error('Could not find "Miss Days" column. Available headers:', 
+            $('table thead th').map(function() { return $(this).text().trim(); }).get().join(', '));
+          return;
+        }
 
+        $('table tbody tr').each(function () {
+          var missDaysText = $(this).find('td').eq(missDaysIdx).text().trim();
+          var missDays = parseInt(missDaysText);
+          
+          if (!isNaN(missDays) && missDays < 0) {
+            if (rowsHidden) $(this).show();
+            else $(this).hide();
+          }
+        });
+        
         if (rowsHidden) {
-          // Show negative rows
-          var missDaysIdx = $('table thead th:contains("Miss Days")').index();
-          $('table tbody tr').each(function () {
-            var missDaysCell = $(this).find('td').eq(missDaysIdx);
-            var missDaysText = missDaysCell.text().trim();
-            var missDays = parseInt(missDaysText);
-            console.log('Show - Row Miss Days:', missDaysText, 'Parsed:', missDays, 'at index:', missDaysIdx);
-            if (!isNaN(missDays) && missDays < 0) {
-              $(this).show();
-            }
-          });
-          $(this).text('Nascondi dividendi già passati');
-          $(this).removeClass('btn-warning').addClass('btn-success');
+          btn.text('Nascondi dividendi già passati').removeClass('btn-warning').addClass('btn-success');
           rowsHidden = false;
         } else {
-          // Hide negative rows
-          var missDaysIdx = $('table thead th:contains("Miss Days")').index();
-          $('table tbody tr').each(function () {
-            var missDaysCell = $(this).find('td').eq(missDaysIdx);
-            var missDaysText = missDaysCell.text().trim();
-            var missDays = parseInt(missDaysText);
-            console.log('Hide - Row Miss Days:', missDaysText, 'Parsed:', missDays, 'at index:', missDaysIdx);
-            if (!isNaN(missDays) && missDays < 0) {
-              $(this).hide();
-            }
-          });
-          $(this).text('Mostra dividendi già passati');
-          $(this).removeClass('btn-success').addClass('btn-warning');
+          btn.text('Mostra dividendi già passati').removeClass('btn-success').addClass('btn-warning');
           rowsHidden = true;
         }
       });
@@ -205,7 +211,7 @@
     <tr>
       <td>1</td>
       <td>Banca Monte dei Paschi di Siena S.p.A.</td>
-      <td>0.860000</td>
+      <td>0.860</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-03-20</td>
@@ -218,7 +224,7 @@
     <tr>
       <td>2</td>
       <td>Nexi S.p.A.</td>
-      <td>0.300000</td>
+      <td>0.300</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -231,7 +237,7 @@
     <tr>
       <td>3</td>
       <td>RCS MediaGroup S.p.A.</td>
-      <td>0.070000</td>
+      <td>0.070</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -244,7 +250,7 @@
     <tr>
       <td>4</td>
       <td>Anima Holding S.p.A.</td>
-      <td>0.500000</td>
+      <td>0.500</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -257,7 +263,7 @@
     <tr>
       <td>5</td>
       <td>CAIRO COMMUNICATION S.p.A.</td>
-      <td>0.180000</td>
+      <td>0.180</td>
       <td>EURO</td>
       <td>2026-05-25</td>
       <td>2026-05-27</td>
@@ -270,7 +276,7 @@
     <tr>
       <td>6</td>
       <td>Esprinet S.p.A.</td>
-      <td>0.350000</td>
+      <td>0.350</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -283,7 +289,7 @@
     <tr>
       <td>7</td>
       <td>MARR S.p.A.</td>
-      <td>0.470000</td>
+      <td>0.470</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -296,7 +302,7 @@
     <tr>
       <td>8</td>
       <td>AZIMUT HOLDING S.p.A.</td>
-      <td>2.000000</td>
+      <td>2.000</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -309,7 +315,7 @@
     <tr>
       <td>9</td>
       <td>BANCO DI DESIO E DELLA BRIANZA S.p.A.</td>
-      <td>0.510500</td>
+      <td>0.510</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -322,7 +328,7 @@
     <tr>
       <td>10</td>
       <td>B&amp;C SPEAKERS S.p.A.</td>
-      <td>0.700000</td>
+      <td>0.700</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -335,7 +341,7 @@
     <tr>
       <td>11</td>
       <td>IREN S.p.A.</td>
-      <td>0.138600</td>
+      <td>0.139</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -348,7 +354,7 @@
     <tr>
       <td>12</td>
       <td>ENAV S.p.A.</td>
-      <td>0.290000</td>
+      <td>0.290</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -361,7 +367,7 @@
     <tr>
       <td>13</td>
       <td>RAI WAY S.p.A.</td>
-      <td>0.330000</td>
+      <td>0.330</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -374,7 +380,7 @@
     <tr>
       <td>14</td>
       <td>I.M.D. International Medical Devices S.p.A.</td>
-      <td>0.070000</td>
+      <td>0.070</td>
       <td>EURO</td>
       <td>2026-04-27</td>
       <td>2026-04-29</td>
@@ -387,7 +393,7 @@
     <tr>
       <td>15</td>
       <td>CREDITO EMILIANO S.p.A.</td>
-      <td>0.750000</td>
+      <td>0.750</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -400,7 +406,7 @@
     <tr>
       <td>16</td>
       <td>Generalfinance S.p.A.</td>
-      <td>1.360000</td>
+      <td>1.360</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -413,7 +419,7 @@
     <tr>
       <td>17</td>
       <td>Bper Banca S.P.A.</td>
-      <td>0.560000</td>
+      <td>0.560</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -426,7 +432,7 @@
     <tr>
       <td>18</td>
       <td>Enervit S.p.A.</td>
-      <td>0.215000</td>
+      <td>0.215</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -439,7 +445,7 @@
     <tr>
       <td>19</td>
       <td>OMER S.p.A.</td>
-      <td>0.170000</td>
+      <td>0.170</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -452,7 +458,7 @@
     <tr>
       <td>20</td>
       <td>FNM S.p.A.</td>
-      <td>0.023000</td>
+      <td>0.023</td>
       <td>EURO</td>
       <td>2026-06-01</td>
       <td>2026-06-03</td>
@@ -465,7 +471,7 @@
     <tr>
       <td>21</td>
       <td>ASSICURAZIONI GENERALI S.p.A.</td>
-      <td>1.640000</td>
+      <td>1.640</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -478,7 +484,7 @@
     <tr>
       <td>22</td>
       <td>CELLULARLINE S.p.A.</td>
-      <td>0.108000</td>
+      <td>0.108</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -491,7 +497,7 @@
     <tr>
       <td>23</td>
       <td>ASCOPIAVE S.p.A.</td>
-      <td>0.160000</td>
+      <td>0.160</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -504,7 +510,7 @@
     <tr>
       <td>24</td>
       <td>Banca Profilo S.p.A.</td>
-      <td>0.007000</td>
+      <td>0.007</td>
       <td>EURO</td>
       <td>2026-04-27</td>
       <td>2026-04-29</td>
@@ -517,7 +523,7 @@
     <tr>
       <td>25</td>
       <td>ERG S.p.A.</td>
-      <td>1.000000</td>
+      <td>1.000</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -530,7 +536,7 @@
     <tr>
       <td>26</td>
       <td>PLC S.p.A.</td>
-      <td>0.110000</td>
+      <td>0.110</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -543,7 +549,7 @@
     <tr>
       <td>27</td>
       <td>POWERSOFT S.p.A.</td>
-      <td>0.780000</td>
+      <td>0.780</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -556,7 +562,7 @@
     <tr>
       <td>28</td>
       <td>Banco BPM S.p.A.</td>
-      <td>0.540000</td>
+      <td>0.540</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -569,7 +575,7 @@
     <tr>
       <td>29</td>
       <td>SAIPEM S.p.A.</td>
-      <td>0.170000</td>
+      <td>0.170</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -582,7 +588,7 @@
     <tr>
       <td>30</td>
       <td>MAIRE S.p.A.</td>
-      <td>0.585000</td>
+      <td>0.585</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -595,7 +601,7 @@
     <tr>
       <td>31</td>
       <td>Italgas S.p.A.</td>
-      <td>0.432000</td>
+      <td>0.432</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -608,7 +614,7 @@
     <tr>
       <td>32</td>
       <td>A2A S.p.A.</td>
-      <td>0.104000</td>
+      <td>0.104</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -621,7 +627,7 @@
     <tr>
       <td>33</td>
       <td>EUROCOMMERCIAL PROPERTIES N.V.</td>
-      <td>1.110000</td>
+      <td>1.110</td>
       <td>EURO</td>
       <td>2026-06-04</td>
       <td>2026-07-02</td>
@@ -634,7 +640,7 @@
     <tr>
       <td>34</td>
       <td>SABAF S.p.A.</td>
-      <td>0.580000</td>
+      <td>0.580</td>
       <td>EURO</td>
       <td>2026-05-25</td>
       <td>2026-05-27</td>
@@ -647,7 +653,7 @@
     <tr>
       <td>35</td>
       <td>GEFRAN S.p.A.</td>
-      <td>0.430000</td>
+      <td>0.430</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -660,7 +666,7 @@
     <tr>
       <td>36</td>
       <td>Poste Italiane S.p.A.</td>
-      <td>0.850000</td>
+      <td>0.850</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -673,7 +679,7 @@
     <tr>
       <td>37</td>
       <td>Banca Generali S.p.A.</td>
-      <td>2.200000</td>
+      <td>2.200</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -686,7 +692,7 @@
     <tr>
       <td>38</td>
       <td>FinecoBank S.p.A.</td>
-      <td>0.790000</td>
+      <td>0.790</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -699,7 +705,7 @@
     <tr>
       <td>39</td>
       <td>Neodecortech S.p.A.</td>
-      <td>0.150000</td>
+      <td>0.150</td>
       <td>EURO</td>
       <td>2026-05-25</td>
       <td>2026-05-27</td>
@@ -712,7 +718,7 @@
     <tr>
       <td>40</td>
       <td>BANCA IFIS S.p.A.</td>
-      <td>0.920000</td>
+      <td>0.920</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -725,7 +731,7 @@
     <tr>
       <td>41</td>
       <td>ITALMOBILIARE S.p.A.</td>
-      <td>1.100000</td>
+      <td>1.100</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -738,7 +744,7 @@
     <tr>
       <td>42</td>
       <td>First Capital S.p.A.</td>
-      <td>0.750000</td>
+      <td>0.750</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -751,7 +757,7 @@
     <tr>
       <td>43</td>
       <td>Reti S.p.A.</td>
-      <td>0.060000</td>
+      <td>0.060</td>
       <td>EURO</td>
       <td>2026-04-13</td>
       <td>2026-04-15</td>
@@ -764,7 +770,7 @@
     <tr>
       <td>44</td>
       <td>HERA S.p.A.</td>
-      <td>0.160000</td>
+      <td>0.160</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -777,7 +783,7 @@
     <tr>
       <td>45</td>
       <td>Acinque S.p.A.</td>
-      <td>0.085000</td>
+      <td>0.085</td>
       <td>EURO</td>
       <td>2026-07-06</td>
       <td>2026-07-08</td>
@@ -790,7 +796,7 @@
     <tr>
       <td>46</td>
       <td>IGD SIIQ S.p.A.</td>
-      <td>0.150000</td>
+      <td>0.150</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -803,7 +809,7 @@
     <tr>
       <td>47</td>
       <td>ARNOLDO MONDADORI EDITORE S.p.A.</td>
-      <td>0.077000</td>
+      <td>0.077</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -816,7 +822,7 @@
     <tr>
       <td>48</td>
       <td>ARNOLDO MONDADORI EDITORE S.p.A.</td>
-      <td>0.077000</td>
+      <td>0.077</td>
       <td>EURO</td>
       <td>2026-11-23</td>
       <td>2026-11-25</td>
@@ -829,7 +835,7 @@
     <tr>
       <td>49</td>
       <td>BANCA MEDIOLANUM S.p.A.</td>
-      <td>0.650000</td>
+      <td>0.650</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -842,7 +848,7 @@
     <tr>
       <td>50</td>
       <td>Mediobanca Banca di Credito Finanziario S.p.A.</td>
-      <td>0.630000</td>
+      <td>0.630</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -855,7 +861,7 @@
     <tr>
       <td>51</td>
       <td>Intesa Sanpaolo S.p.A.</td>
-      <td>0.190000</td>
+      <td>0.190</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -868,7 +874,7 @@
     <tr>
       <td>52</td>
       <td>VALSOIA S.p.A.</td>
-      <td>0.380000</td>
+      <td>0.380</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -881,7 +887,7 @@
     <tr>
       <td>53</td>
       <td>EQUITA GROUP S.p.A.</td>
-      <td>0.200000</td>
+      <td>0.200</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -894,7 +900,7 @@
     <tr>
       <td>54</td>
       <td>EQUITA GROUP S.p.A.</td>
-      <td>0.200000</td>
+      <td>0.200</td>
       <td>EURO</td>
       <td>2026-11-16</td>
       <td>2026-11-18</td>
@@ -907,7 +913,7 @@
     <tr>
       <td>55</td>
       <td>AEROPORTO GUGLIELMO MARCONI DI BOLOGNA S.p.A.</td>
-      <td>0.350000</td>
+      <td>0.350</td>
       <td>EURO</td>
       <td>2026-05-11</td>
       <td>2026-05-13</td>
@@ -920,7 +926,7 @@
     <tr>
       <td>56</td>
       <td>BREMBO N.V.</td>
-      <td>0.300000</td>
+      <td>0.300</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -933,7 +939,7 @@
     <tr>
       <td>57</td>
       <td>EMAK S.p.A.</td>
-      <td>0.030000</td>
+      <td>0.030</td>
       <td>EURO</td>
       <td>2026-06-01</td>
       <td>2026-06-03</td>
@@ -946,7 +952,7 @@
     <tr>
       <td>58</td>
       <td>D'AMICO INTERNATIONAL SHIPPING S.A.</td>
-      <td>0.270000</td>
+      <td>0.270</td>
       <td>DOLLARI USA</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -959,7 +965,7 @@
     <tr>
       <td>59</td>
       <td>WEBUILD S.p.A.</td>
-      <td>0.081000</td>
+      <td>0.081</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -972,7 +978,7 @@
     <tr>
       <td>60</td>
       <td>Orsero S.p.A.</td>
-      <td>0.500000</td>
+      <td>0.500</td>
       <td>EURO</td>
       <td>2026-05-11</td>
       <td>2026-05-13</td>
@@ -985,7 +991,7 @@
     <tr>
       <td>61</td>
       <td>Sanlorenzo S.p.A.</td>
-      <td>1.050000</td>
+      <td>1.050</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -998,7 +1004,7 @@
     <tr>
       <td>62</td>
       <td>CALTAGIRONE S.p.A.</td>
-      <td>0.300000</td>
+      <td>0.300</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1011,7 +1017,7 @@
     <tr>
       <td>63</td>
       <td>Fiera Milano S.p.A</td>
-      <td>0.250000</td>
+      <td>0.250</td>
       <td>EURO</td>
       <td>2026-04-27</td>
       <td>2026-04-29</td>
@@ -1024,7 +1030,7 @@
     <tr>
       <td>64</td>
       <td>TAMBURI INVESTMENT PARTNERS S.p.A.</td>
-      <td>0.260000</td>
+      <td>0.260</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -1037,7 +1043,7 @@
     <tr>
       <td>65</td>
       <td>Alerion Clean Power S.p.A.</td>
-      <td>0.610000</td>
+      <td>0.610</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -1050,7 +1056,7 @@
     <tr>
       <td>66</td>
       <td>AMPLIFON S.p.A.</td>
-      <td>0.290000</td>
+      <td>0.290</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1063,7 +1069,7 @@
     <tr>
       <td>67</td>
       <td>CEMBRE S.p.A.</td>
-      <td>2.060000</td>
+      <td>2.060</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1076,7 +1082,7 @@
     <tr>
       <td>68</td>
       <td>ZIGNAGO VETRO S.p.A.</td>
-      <td>0.220000</td>
+      <td>0.220</td>
       <td>EURO</td>
       <td>2026-05-11</td>
       <td>2026-05-13</td>
@@ -1089,7 +1095,7 @@
     <tr>
       <td>69</td>
       <td>IRCE s.p.a</td>
-      <td>0.060000</td>
+      <td>0.060</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1102,7 +1108,7 @@
     <tr>
       <td>70</td>
       <td>EDISON S.p.A.</td>
-      <td>0.065000</td>
+      <td>0.065</td>
       <td>EURO</td>
       <td>2026-04-27</td>
       <td>2026-04-29</td>
@@ -1115,7 +1121,7 @@
     <tr>
       <td>71</td>
       <td>FOPE S.p.A.</td>
-      <td>1.100000</td>
+      <td>1.100</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -1128,7 +1134,7 @@
     <tr>
       <td>72</td>
       <td>DE' LONGHI S.p.A.</td>
-      <td>0.850000</td>
+      <td>0.850</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1141,7 +1147,7 @@
     <tr>
       <td>73</td>
       <td>Snam S.p.A.</td>
-      <td>0.181300</td>
+      <td>0.181</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -1154,7 +1160,7 @@
     <tr>
       <td>74</td>
       <td>ENEL S.p.A.</td>
-      <td>0.260000</td>
+      <td>0.260</td>
       <td>EURO</td>
       <td>2026-07-20</td>
       <td>2026-07-22</td>
@@ -1167,7 +1173,7 @@
     <tr>
       <td>75</td>
       <td>Unicredit S.p.A.</td>
-      <td>1.720800</td>
+      <td>1.721</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -1180,7 +1186,7 @@
     <tr>
       <td>76</td>
       <td>Moncler S.p.A.</td>
-      <td>1.400000</td>
+      <td>1.400</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1193,7 +1199,7 @@
     <tr>
       <td>77</td>
       <td>Ariston Holding N.V.</td>
-      <td>0.100000</td>
+      <td>0.100</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1206,7 +1212,7 @@
     <tr>
       <td>78</td>
       <td>Basic Net S.p.A.</td>
-      <td>0.160000</td>
+      <td>0.160</td>
       <td>EURO</td>
       <td>2026-04-27</td>
       <td>2026-04-29</td>
@@ -1219,7 +1225,7 @@
     <tr>
       <td>79</td>
       <td>F.I.L.A. S.p.A.</td>
-      <td>0.240000</td>
+      <td>0.240</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1232,7 +1238,7 @@
     <tr>
       <td>80</td>
       <td>TENARIS S.A.</td>
-      <td>0.600000</td>
+      <td>0.600</td>
       <td>DOLLARI USA</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1245,7 +1251,7 @@
     <tr>
       <td>81</td>
       <td>DATALOGIC S.p.A.</td>
-      <td>0.120000</td>
+      <td>0.120</td>
       <td>EURO</td>
       <td>2026-07-13</td>
       <td>2026-07-15</td>
@@ -1258,7 +1264,7 @@
     <tr>
       <td>82</td>
       <td>CALTAGIRONE EDITORE S.p.A.</td>
-      <td>0.040000</td>
+      <td>0.040</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1271,7 +1277,7 @@
     <tr>
       <td>83</td>
       <td>TECHNOGYM S.p.A.</td>
-      <td>0.380000</td>
+      <td>0.380</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1284,7 +1290,7 @@
     <tr>
       <td>84</td>
       <td>DiaSorin S.p.A</td>
-      <td>1.300000</td>
+      <td>1.300</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1297,7 +1303,7 @@
     <tr>
       <td>85</td>
       <td>Ecomembrane S.p.A.</td>
-      <td>0.096000</td>
+      <td>0.096</td>
       <td>EURO</td>
       <td>2026-05-11</td>
       <td>2026-05-13</td>
@@ -1310,7 +1316,7 @@
     <tr>
       <td>86</td>
       <td>Toscana Aeroporti S.p.A.</td>
-      <td>0.376000</td>
+      <td>0.376</td>
       <td>EURO</td>
       <td>2026-07-20</td>
       <td>2026-07-22</td>
@@ -1323,7 +1329,7 @@
     <tr>
       <td>87</td>
       <td>GAROFALO HEALTH CARE S.p.A.</td>
-      <td>0.093000</td>
+      <td>0.093</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1336,7 +1342,7 @@
     <tr>
       <td>88</td>
       <td>EL.EN. S.p.A.</td>
-      <td>0.250000</td>
+      <td>0.250</td>
       <td>EURO</td>
       <td>2026-05-25</td>
       <td>2026-05-27</td>
@@ -1349,7 +1355,7 @@
     <tr>
       <td>89</td>
       <td>Comer Industries S.p.A.</td>
-      <td>0.850000</td>
+      <td>0.850</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1362,7 +1368,7 @@
     <tr>
       <td>90</td>
       <td>FINE FOODS &amp; Pharmaceuticals N.T.M. S.p.A.</td>
-      <td>0.160000</td>
+      <td>0.160</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -1375,7 +1381,7 @@
     <tr>
       <td>91</td>
       <td>Cementir Holding N.V.</td>
-      <td>0.300000</td>
+      <td>0.300</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1388,7 +1394,7 @@
     <tr>
       <td>92</td>
       <td>Industrie De Nora S.p.A.</td>
-      <td>0.103000</td>
+      <td>0.103</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2025-05-20</td>
@@ -1401,7 +1407,7 @@
     <tr>
       <td>93</td>
       <td>Confinvest F.L. S.p.A.</td>
-      <td>0.034000</td>
+      <td>0.034</td>
       <td>EURO</td>
       <td>2026-03-30</td>
       <td>2026-04-01</td>
@@ -1414,7 +1420,7 @@
     <tr>
       <td>94</td>
       <td>REPLY S.p.A.</td>
-      <td>1.350000</td>
+      <td>1.350</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1427,7 +1433,7 @@
     <tr>
       <td>95</td>
       <td>Lottomatica Group S.p.A.</td>
-      <td>0.440000</td>
+      <td>0.440</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1440,7 +1446,7 @@
     <tr>
       <td>96</td>
       <td>ITALIAN EXHIBITION GROUP S.p.A.</td>
-      <td>0.200000</td>
+      <td>0.200</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1453,7 +1459,7 @@
     <tr>
       <td>97</td>
       <td>Davide Campari-Milano N.V.</td>
-      <td>0.100000</td>
+      <td>0.100</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -1466,7 +1472,7 @@
     <tr>
       <td>98</td>
       <td>INTERCOS S.p.A.</td>
-      <td>0.197169</td>
+      <td>0.197</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -1479,7 +1485,7 @@
     <tr>
       <td>99</td>
       <td>Pharmanutra S.p.A.</td>
-      <td>1.200000</td>
+      <td>1.200</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -1492,7 +1498,7 @@
     <tr>
       <td>100</td>
       <td>RECORDATI S.p.A.</td>
-      <td>0.710000</td>
+      <td>0.710</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1505,7 +1511,7 @@
     <tr>
       <td>101</td>
       <td>BRUNELLO CUCINELLI S.p.A.</td>
-      <td>1.040000</td>
+      <td>1.040</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1518,7 +1524,7 @@
     <tr>
       <td>102</td>
       <td>Banca Generali S.p.A.</td>
-      <td>0.700000</td>
+      <td>0.700</td>
       <td>EURO</td>
       <td>2027-02-22</td>
       <td>2027-02-24</td>
@@ -1531,7 +1537,7 @@
     <tr>
       <td>103</td>
       <td>Ferrari N.V.</td>
-      <td>3.615000</td>
+      <td>3.615</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-05-05</td>
@@ -1544,7 +1550,7 @@
     <tr>
       <td>104</td>
       <td>LU-VE S.p.A.</td>
-      <td>0.470000</td>
+      <td>0.470</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -1557,7 +1563,7 @@
     <tr>
       <td>105</td>
       <td>TXT E-SOLUTIONS S.p.A.</td>
-      <td>0.350000</td>
+      <td>0.350</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1570,7 +1576,7 @@
     <tr>
       <td>106</td>
       <td>REVO Insurance S.p.A.</td>
-      <td>0.270000</td>
+      <td>0.270</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -1583,7 +1589,7 @@
     <tr>
       <td>107</td>
       <td>Pattern S.p.A.</td>
-      <td>0.035000</td>
+      <td>0.035</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1596,7 +1602,7 @@
     <tr>
       <td>108</td>
       <td>ACEA S.p.A.</td>
-      <td>0.250000</td>
+      <td>0.250</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -1609,7 +1615,7 @@
     <tr>
       <td>109</td>
       <td>WIIT S.p.A.</td>
-      <td>0.300000</td>
+      <td>0.300</td>
       <td>EURO</td>
       <td>2026-05-04</td>
       <td>2026-05-06</td>
@@ -1622,7 +1628,7 @@
     <tr>
       <td>110</td>
       <td>Eni S.p.A.</td>
-      <td>0.260000</td>
+      <td>0.260</td>
       <td>EURO</td>
       <td>2026-03-23</td>
       <td>2026-03-25</td>
@@ -1635,7 +1641,7 @@
     <tr>
       <td>111</td>
       <td>Leonardo S.p.A.</td>
-      <td>0.630000</td>
+      <td>0.630</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -1648,7 +1654,7 @@
     <tr>
       <td>112</td>
       <td>INTERPUMP GROUP S.p.A.</td>
-      <td>0.350000</td>
+      <td>0.350</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1661,7 +1667,7 @@
     <tr>
       <td>113</td>
       <td>Prysmian S.p.A.</td>
-      <td>0.900000</td>
+      <td>0.900</td>
       <td>EURO</td>
       <td>2026-04-20</td>
       <td>2026-04-22</td>
@@ -1674,7 +1680,7 @@
     <tr>
       <td>114</td>
       <td>CAREL INDUSTRIES S.p.A.</td>
-      <td>0.195000</td>
+      <td>0.195</td>
       <td>EURO</td>
       <td>2026-06-22</td>
       <td>2026-06-24</td>
@@ -1687,7 +1693,7 @@
     <tr>
       <td>115</td>
       <td>Porto Aviation Group S.p.A.</td>
-      <td>0.085000</td>
+      <td>0.085</td>
       <td>EURO</td>
       <td>2026-05-11</td>
       <td>2026-05-13</td>
@@ -1700,7 +1706,7 @@
     <tr>
       <td>116</td>
       <td>SYS-DAT S.p.A.</td>
-      <td>0.040000</td>
+      <td>0.040</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1713,7 +1719,7 @@
     <tr>
       <td>117</td>
       <td>I.CO.P. S.p.A. Società Benefit</td>
-      <td>0.140000</td>
+      <td>0.140</td>
       <td>EURO</td>
       <td>2026-04-13</td>
       <td>2026-04-15</td>
@@ -1726,7 +1732,7 @@
     <tr>
       <td>118</td>
       <td>MOLTIPLY GROUP S.p.A.</td>
-      <td>0.150000</td>
+      <td>0.150</td>
       <td>EURO</td>
       <td>2026-07-06</td>
       <td>2026-07-08</td>
@@ -1739,7 +1745,7 @@
     <tr>
       <td>119</td>
       <td>Avio S.p.A.</td>
-      <td>0.148460</td>
+      <td>0.148</td>
       <td>EURO</td>
       <td>2026-05-18</td>
       <td>2026-05-20</td>
@@ -1752,7 +1758,7 @@
     <tr>
       <td>120</td>
       <td>STMicroelectronics N.V.</td>
-      <td>0.090000</td>
+      <td>0.090</td>
       <td>DOLLARI USA</td>
       <td>2026-03-23</td>
       <td>2026-03-25</td>
